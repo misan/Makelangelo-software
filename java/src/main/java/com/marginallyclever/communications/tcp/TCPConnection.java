@@ -108,8 +108,10 @@ public final class TCPConnection implements Runnable, NetworkConnection {
 			try {
 				int bytesRead = socket.read(buf);
 				if(bytesRead>0) {
-					String line = buf.toString();
+					String line = new String(buf.array());
 					dataAvailable(bytesRead,line);
+                                        //System.out.println("DATA RECEIVED "+line);
+                                        buf = ByteBuffer.allocate(256);
 				}
 			}
 			catch (IOException e) {
